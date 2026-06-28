@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function ContactFooter() {
   const [status, setStatus] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
     setStatus('submitting');
 
-    const form = e.target;
+    const form = e.currentTarget;
     const data = new FormData(form);
 
     try {
