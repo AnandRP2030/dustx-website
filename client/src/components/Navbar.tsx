@@ -25,33 +25,44 @@ function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ['services', 'results', 'pricing', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+      // If user has scrolled to the bottom of the page, activate Contact
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
+      if (isAtBottom) {
+        setActiveSection('contact');
+        return;
+      }
+
+      // If at top of page, clear active highlights
+      if (window.scrollY < 150) {
+        setActiveSection('');
+        return;
+      }
+
+      // Check sections from bottom to top
+      const sections = ['contact', 'pricing', 'results', 'services'];
+      const scrollTrigger = window.scrollY + window.innerHeight * 0.35;
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
           const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          if (scrollTrigger >= top) {
             setActiveSection(sectionId);
             return;
           }
         }
       }
-
-      if (window.scrollY < 200) {
-        setActiveSection('');
-      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
     const targetId = href.replace('#', '');
+    setActiveSection(targetId);
     const element = document.getElementById(targetId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
