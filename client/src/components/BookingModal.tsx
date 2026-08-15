@@ -475,7 +475,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                   <input
                     type="text"
                     required={serviceMode === 'Doorstep Service'}
-                    placeholder="e.g. Kowdiar / Kazhakkoottam"
+                    placeholder="e.g. Kovalam"
                     value={customerAddress}
                     onChange={(e) => setCustomerAddress(e.target.value)}
                     className="w-full bg-black border border-neutral-700 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-yellow-400"

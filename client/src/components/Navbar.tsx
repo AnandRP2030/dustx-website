@@ -12,6 +12,8 @@ const navLinks: NavItem[] = [
   { name: 'Services', href: '#services' },
   { name: 'Transformations', href: '#results' },
   { name: 'Pricing', href: '#pricing' },
+  { name: 'Reviews', href: '#reviews' },
+  { name: 'FAQ', href: '#faq' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -43,7 +45,7 @@ function Navbar({ onOpenBooking }: NavbarProps) {
       }
 
       // Check sections from bottom to top
-      const sections = ['contact', 'pricing', 'results', 'services'];
+      const sections = ['contact', 'faq', 'reviews', 'pricing', 'results', 'services'];
       const scrollTrigger = window.scrollY + window.innerHeight * 0.35;
 
       for (const sectionId of sections) {
@@ -68,11 +70,10 @@ function Navbar({ onOpenBooking }: NavbarProps) {
     setActiveSection(targetId);
     setMobileMenuOpen(false);
 
-    // Allow mobile drawer collapse to trigger before calculating layout scroll position
     setTimeout(() => {
       const element = document.getElementById(targetId);
       if (element) {
-        const navHeight = 70; // Height of the fixed navbar
+        const navHeight = 70;
         const elementPosition = element.getBoundingClientRect().top + window.scrollY;
         const offsetPosition = Math.max(0, elementPosition - navHeight);
 
@@ -103,14 +104,13 @@ function Navbar({ onOpenBooking }: NavbarProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-black/85 backdrop-blur-xl border-b border-neutral-800/80 py-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
-          : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'bg-neutral-950/85 backdrop-blur-xl border-b border-neutral-800/80 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
+          : 'bg-gradient-to-b from-black/90 via-black/50 to-transparent py-4 sm:py-5'
+        }`}
     >
       <div className="max-w-6xl mx-auto px-4 md:px-10 flex items-center justify-between">
-        
+
         {/* Brand Logo */}
         <button
           onClick={scrollToTop}
@@ -130,18 +130,17 @@ function Navbar({ onOpenBooking }: NavbarProps) {
         </button>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-6">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.replace('#', '');
             return (
               <button
                 key={link.name}
                 onClick={() => handleNavClick(link.href)}
-                className={`text-sm font-semibold tracking-wide transition-all duration-200 cursor-pointer relative py-1 ${
-                  isActive
-                    ? 'text-yellow-400 font-bold'
+                className={`text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer relative py-1 ${isActive
+                    ? 'text-yellow-400 font-extrabold'
                     : 'text-gray-300 hover:text-white'
-                }`}
+                  }`}
               >
                 {link.name}
                 {isActive && (
@@ -156,7 +155,7 @@ function Navbar({ onOpenBooking }: NavbarProps) {
         </nav>
 
         {/* Desktop Action CTAs */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden sm:flex items-center gap-3">
           <a
             href="tel:9567487057"
             className="flex items-center gap-2 text-xs font-semibold text-gray-300 hover:text-yellow-400 px-3.5 py-2 rounded-full border border-neutral-800 bg-neutral-900/60 hover:border-yellow-400/40 transition-all duration-300"
@@ -168,7 +167,7 @@ function Navbar({ onOpenBooking }: NavbarProps) {
 
           <button
             onClick={handleBookClick}
-            className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_0_15px_rgba(250,204,21,0.4)] hover:shadow-[0_0_25px_rgba(250,204,21,0.7)] transition-all duration-300 cursor-pointer flex items-center gap-1.5"
+            className="bg-yellow-400 hover:bg-yellow-300 text-black font-extrabold text-xs uppercase tracking-wider px-5 py-2.5 rounded-full shadow-[0_0_15px_rgba(250,204,21,0.4)] hover:shadow-[0_0_25px_rgba(250,204,21,0.7)] transition-all duration-300 cursor-pointer flex items-center gap-1.5"
           >
             <IoSparkles className="text-xs" />
             <span>Book Now</span>
@@ -179,7 +178,7 @@ function Navbar({ onOpenBooking }: NavbarProps) {
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle Navigation Menu"
-          className="md:hidden text-gray-200 hover:text-yellow-400 p-2 rounded-xl bg-neutral-900/80 border border-neutral-800 focus:outline-none transition-colors cursor-pointer"
+          className="lg:hidden text-gray-200 hover:text-yellow-400 p-2 rounded-xl bg-neutral-900/80 border border-neutral-800 focus:outline-none transition-colors cursor-pointer"
         >
           {mobileMenuOpen ? <FaTimes className="text-xl text-yellow-400" /> : <FaBars className="text-xl" />}
         </button>
@@ -194,32 +193,31 @@ function Navbar({ onOpenBooking }: NavbarProps) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden bg-neutral-950/95 backdrop-blur-2xl border-b border-neutral-800 px-6 py-6 shadow-2xl overflow-hidden"
+            className="lg:hidden bg-neutral-950/98 backdrop-blur-2xl border-b border-neutral-800 px-6 py-6 shadow-2xl overflow-hidden"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2.5">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.replace('#', '');
                 return (
                   <button
                     key={link.name}
                     onClick={() => handleNavClick(link.href)}
-                    className={`flex items-center justify-between text-left text-base font-semibold py-2 px-3 rounded-lg transition-colors cursor-pointer ${
-                      isActive
-                        ? 'bg-yellow-400/10 text-yellow-400 border-l-2 border-yellow-400'
+                    className={`flex items-center justify-between text-left text-sm font-bold uppercase tracking-wider py-2.5 px-3 rounded-xl transition-colors cursor-pointer ${isActive
+                        ? 'bg-yellow-400/10 text-yellow-400 border-l-2 border-yellow-400 font-extrabold'
                         : 'text-gray-300 hover:bg-neutral-900 hover:text-white'
-                    }`}
+                      }`}
                   >
                     <span>{link.name}</span>
-                    {isActive && <IoShieldCheckmark className="text-yellow-400" />}
+                    {isActive && <IoShieldCheckmark className="text-yellow-400 text-base" />}
                   </button>
                 );
               })}
 
               {/* Mobile Quick Action Buttons */}
-              <div className="pt-4 mt-2 border-t border-neutral-800/80 flex flex-col gap-3">
+              <div className="pt-4 mt-2 border-t border-neutral-800 flex flex-col gap-3">
                 <a
                   href="tel:9567487057"
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-neutral-900 hover:bg-neutral-800 text-gray-200 border border-neutral-700 font-semibold rounded-xl text-sm transition-colors"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-neutral-900 hover:bg-neutral-800 text-gray-200 border border-neutral-700 font-bold rounded-xl text-xs uppercase tracking-wider transition-colors"
                 >
                   <FaPhoneAlt className="text-yellow-400 text-xs" />
                   <span>Call 95674 87057</span>
@@ -227,9 +225,10 @@ function Navbar({ onOpenBooking }: NavbarProps) {
 
                 <button
                   onClick={handleBookClick}
-                  className="w-full py-3 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl text-sm shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-all cursor-pointer"
+                  className="w-full py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-extrabold rounded-xl text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-all cursor-pointer flex items-center justify-center gap-1.5"
                 >
-                  Book a Service
+                  <IoSparkles className="text-sm" />
+                  <span>Book an Appointment</span>
                 </button>
               </div>
             </div>
