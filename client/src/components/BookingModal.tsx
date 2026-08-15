@@ -23,6 +23,7 @@ const VEHICLE_TYPES = [
   { id: 'hatchback', name: 'Hatchback', icon: '🚗', modifier: 0 },
   { id: 'sedan', name: 'Sedan', icon: '🚘', modifier: 200 },
   { id: 'suv', name: 'SUV / Compact SUV', icon: '🚙', modifier: 500 },
+  { id: 'muv', name: 'MUV / MPV', icon: '🚐', modifier: 600 },
   { id: 'luxury', name: 'Luxury / Supercar', icon: '🏎️', modifier: 1000 },
 ];
 
@@ -250,8 +251,8 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                       type="button"
                       onClick={() => setVehicleType(v.name)}
                       className={`p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center gap-1 ${vehicleType === v.name
-                          ? 'border-yellow-400 bg-yellow-400/10 text-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.25)] font-bold'
-                          : 'border-neutral-800 bg-neutral-900/70 text-gray-300 hover:border-neutral-700 hover:bg-neutral-800'
+                        ? 'border-yellow-400 bg-yellow-400/10 text-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.25)] font-bold'
+                        : 'border-neutral-800 bg-neutral-900/70 text-gray-300 hover:border-neutral-700 hover:bg-neutral-800'
                         }`}
                     >
                       <span className="text-2xl">{v.icon}</span>
@@ -275,8 +276,8 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                         type="button"
                         onClick={() => setSelectedPackage(pkg.name)}
                         className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${isSelected
-                            ? 'border-yellow-400 bg-yellow-400/10 shadow-[0_0_12px_rgba(250,204,21,0.25)]'
-                            : 'border-neutral-800 bg-neutral-900/70 hover:border-neutral-700 hover:bg-neutral-800'
+                          ? 'border-yellow-400 bg-yellow-400/10 shadow-[0_0_12px_rgba(250,204,21,0.25)]'
+                          : 'border-neutral-800 bg-neutral-900/70 hover:border-neutral-700 hover:bg-neutral-800'
                           }`}
                       >
                         <div className="flex items-center justify-between">
@@ -332,8 +333,8 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                     type="button"
                     onClick={() => setServiceMode('Studio Drop-off')}
                     className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-3 ${serviceMode === 'Studio Drop-off'
-                        ? 'border-yellow-400 bg-yellow-400/10 text-white shadow-[0_0_12px_rgba(250,204,21,0.25)]'
-                        : 'border-neutral-800 bg-neutral-900/70 text-gray-400 hover:bg-neutral-800'
+                      ? 'border-yellow-400 bg-yellow-400/10 text-white shadow-[0_0_12px_rgba(250,204,21,0.25)]'
+                      : 'border-neutral-800 bg-neutral-900/70 text-gray-400 hover:bg-neutral-800'
                       }`}
                   >
                     <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center text-yellow-400 text-lg border border-neutral-700 shrink-0">
@@ -349,8 +350,8 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                     type="button"
                     onClick={() => setServiceMode('Doorstep Service')}
                     className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-3 ${serviceMode === 'Doorstep Service'
-                        ? 'border-yellow-400 bg-yellow-400/10 text-white shadow-[0_0_12px_rgba(250,204,21,0.25)]'
-                        : 'border-neutral-800 bg-neutral-900/70 text-gray-400 hover:bg-neutral-800'
+                      ? 'border-yellow-400 bg-yellow-400/10 text-white shadow-[0_0_12px_rgba(250,204,21,0.25)]'
+                      : 'border-neutral-800 bg-neutral-900/70 text-gray-400 hover:bg-neutral-800'
                       }`}
                   >
                     <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center text-yellow-400 text-lg border border-neutral-700 shrink-0">
