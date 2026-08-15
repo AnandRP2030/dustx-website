@@ -6,7 +6,7 @@ const packages = [
 
 function Pricing() {
   return (
-    <section className="py-20 px-4 md:px-10 bg-black">
+    <section id="pricing" className="py-20 px-4 md:px-10 bg-black">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-12">Pricing & <span className="text-yellow-400">Packages</span></h2>
         
