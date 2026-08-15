@@ -34,7 +34,7 @@ function ContactFooter() {
   };
 
   return (
-    <footer className="bg-neutral-900 py-16 px-4 border-t border-neutral-800">
+    <footer id="contact" className="bg-neutral-900 py-16 px-4 border-t border-neutral-800">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         
         {/* Contact Info Section */}

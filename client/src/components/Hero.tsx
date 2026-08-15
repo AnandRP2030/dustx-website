@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 function Hero() {
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative w-full h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background (Desktop) */}
       <video
         autoPlay

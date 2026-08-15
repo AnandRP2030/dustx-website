@@ -102,8 +102,10 @@ function BeforeAfterSlider() {
 
   return (
     <section id="results" className="py-24 px-4 md:px-10 bg-black text-white relative overflow-hidden">
-      {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-500/5 blur-[140px] pointer-events-none rounded-full" />
+      {/* Background ambient lighting effects */}
+      <div className="absolute -top-24 -left-24 w-80 h-80 md:w-[480px] md:h-[480px] bg-yellow-500/15 blur-[120px] pointer-events-none rounded-full" />
+      <div className="absolute -bottom-24 -right-24 w-80 h-80 md:w-[480px] md:h-[480px] bg-yellow-400/15 blur-[120px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-72 bg-yellow-500/10 blur-[130px] pointer-events-none rounded-full" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
