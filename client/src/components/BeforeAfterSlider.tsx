@@ -54,7 +54,11 @@ const scenarios: TransformationScenario[] = [
   }
 ];
 
-function BeforeAfterSlider() {
+interface BeforeAfterSliderProps {
+  onOpenBooking?: (treatmentName?: string) => void;
+}
+
+function BeforeAfterSlider({ onOpenBooking }: BeforeAfterSliderProps) {
   const [activeTab, setActiveTab] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -276,14 +280,18 @@ function BeforeAfterSlider() {
 
                 {/* Action CTA */}
                 <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                  <a
-                    href="https://wa.me/9746762831?text=Hi%20DustX!%20I'm%20interested%20in%20the%20transformation%20package."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-6 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl shadow-[0_0_15px_rgba(250,204,21,0.3)] hover:shadow-[0_0_25px_rgba(250,204,21,0.6)] transition-all duration-300 text-sm"
+                  <button
+                    onClick={() => {
+                      if (onOpenBooking) {
+                        onOpenBooking(currentScenario.title);
+                      } else {
+                        window.open('https://wa.me/9746762831?text=Hi%20DustX!%20I%20am%20interested%20in%20the%20transformation%20package.', '_blank');
+                      }
+                    }}
+                    className="inline-flex items-center justify-center px-6 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl shadow-[0_0_15px_rgba(250,204,21,0.3)] hover:shadow-[0_0_25px_rgba(250,204,21,0.6)] transition-all duration-300 text-sm cursor-pointer"
                   >
                     Book This Treatment
-                  </a>
+                  </button>
                   <button
                     onClick={() => {
                       const pricingSection = document.getElementById('pricing');

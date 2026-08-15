@@ -15,7 +15,11 @@ const navLinks: NavItem[] = [
   { name: 'Contact', href: '#contact' },
 ];
 
-function Navbar() {
+interface NavbarProps {
+  onOpenBooking?: () => void;
+}
+
+function Navbar({ onOpenBooking }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -60,18 +64,41 @@ function Navbar() {
   }, []);
 
   const handleNavClick = (href: string) => {
-    setMobileMenuOpen(false);
     const targetId = href.replace('#', '');
     setActiveSection(targetId);
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setMobileMenuOpen(false);
+
+    // Allow mobile drawer collapse to trigger before calculating layout scroll position
+    setTimeout(() => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        const navHeight = 70; // Height of the fixed navbar
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = Math.max(0, elementPosition - navHeight);
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }, 50);
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setActiveSection('');
     setMobileMenuOpen(false);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
+  };
+
+  const handleBookClick = () => {
+    setMobileMenuOpen(false);
+    if (onOpenBooking) {
+      onOpenBooking();
+    } else {
+      handleNavClick('#pricing');
+    }
   };
 
   return (
@@ -140,7 +167,7 @@ function Navbar() {
           </a>
 
           <button
-            onClick={() => handleNavClick('#pricing')}
+            onClick={handleBookClick}
             className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold text-sm px-5 py-2.5 rounded-full shadow-[0_0_15px_rgba(250,204,21,0.4)] hover:shadow-[0_0_25px_rgba(250,204,21,0.7)] transition-all duration-300 cursor-pointer flex items-center gap-1.5"
           >
             <IoSparkles className="text-xs" />
@@ -199,7 +226,7 @@ function Navbar() {
                 </a>
 
                 <button
-                  onClick={() => handleNavClick('#pricing')}
+                  onClick={handleBookClick}
                   className="w-full py-3 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl text-sm shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-all cursor-pointer"
                 >
                   Book a Service

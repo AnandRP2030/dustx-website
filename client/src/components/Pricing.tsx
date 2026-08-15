@@ -4,7 +4,11 @@ const packages = [
   { name: "Ultimate Detail", price: "₹ 7,499", features: ["DustX Pro", "Ceramic Coating", "Deep Carpet Shampoo", "Paint Correction"] },
 ];
 
-function Pricing() {
+interface PricingProps {
+  onSelectPackage?: (pkgName: string) => void;
+}
+
+function Pricing({ onSelectPackage }: PricingProps) {
   return (
     <section id="pricing" className="py-20 px-4 md:px-10 bg-black">
       <div className="max-w-6xl mx-auto">
@@ -27,7 +31,10 @@ function Pricing() {
                 ))}
               </ul>
               
-              <button className="w-full py-3 border-2 border-yellow-400 text-yellow-400 font-bold rounded-lg hover:bg-yellow-400 hover:text-black transition-colors duration-300">
+              <button
+                onClick={() => onSelectPackage?.(pkg.name)}
+                className="w-full py-3 border-2 border-yellow-400 text-yellow-400 font-bold rounded-lg hover:bg-yellow-400 hover:text-black transition-colors duration-300 cursor-pointer"
+              >
                 Select Package
               </button>
             </div>
