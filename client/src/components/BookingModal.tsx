@@ -23,7 +23,6 @@ const VEHICLE_TYPES = [
   { id: 'hatchback', name: 'Hatchback', icon: '🚗', modifier: 0 },
   { id: 'sedan', name: 'Sedan', icon: '🚘', modifier: 200 },
   { id: 'suv', name: 'SUV / Compact SUV', icon: '🚙', modifier: 500 },
-  { id: 'muv', name: 'MUV / MPV', icon: '🚐', modifier: 600 },
   { id: 'luxury', name: 'Luxury / Supercar', icon: '🏎️', modifier: 1000 },
 ];
 
@@ -37,16 +36,18 @@ const PACKAGES = [
 ];
 
 const TIME_SLOTS = [
+  'Early Morning (6:00 AM - 09:00 PM)',
   'Morning (9:00 AM - 12:00 PM)',
   'Afternoon (1:00 PM - 4:00 PM)',
-  'Evening (4:00 PM - 7:00 PM)',
+  'Evening (4:00 PM - 6:00 PM)',
+  'Night (7:00 PM - 12:00 PM)',
 ];
 
 function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
   const [step, setStep] = useState(1);
   const [vehicleType, setVehicleType] = useState('Sedan');
   const [selectedPackage, setSelectedPackage] = useState(initialPackage || 'DustX Pro');
-  const [serviceMode, setServiceMode] = useState<'Studio Drop-off' | 'Doorstep Service'>('Studio Drop-off');
+  const [serviceMode, setServiceMode] = useState<'Pickup & Drop' | 'Doorstep Service'>('Doorstep Service');
 
   // Default date: tomorrow formatted YYYY-MM-DD
   const tomorrow = new Date();
@@ -132,7 +133,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
     if (notes) formData.append('Special Notes', notes);
 
     try {
-      const response = await fetch('https://formspree.io/f/xwvdbngl', {
+      const response = await fetch('https://formspree.io/f/xppzngny', {
         method: 'POST',
         body: formData,
         headers: {
@@ -331,8 +332,8 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
                     type="button"
-                    onClick={() => setServiceMode('Studio Drop-off')}
-                    className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-3 ${serviceMode === 'Studio Drop-off'
+                    onClick={() => setServiceMode('Pickup & Drop')}
+                    className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-center gap-3 ${serviceMode === 'Pickup & Drop'
                       ? 'border-yellow-400 bg-yellow-400/10 text-white shadow-[0_0_12px_rgba(250,204,21,0.25)]'
                       : 'border-neutral-800 bg-neutral-900/70 text-gray-400 hover:bg-neutral-800'
                       }`}
@@ -341,7 +342,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                       <FaBuilding />
                     </div>
                     <div>
-                      <span className="font-bold text-sm block text-white">Studio Drop-off</span>
+                      <span className="font-bold text-sm block text-white">Pickup & Drop</span>
                       <span className="text-[11px] text-gray-400">DustX Detailing Studio, Trivandrum</span>
                     </div>
                   </button>

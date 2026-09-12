@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaCar, FaSprayCan, FaWrench, FaCouch, FaShower, FaLightbulb, FaCheck, FaArrowRight } from 'react-icons/fa';
+import { MdLocalCarWash } from 'react-icons/md';
 
 interface ServicesProps {
   onOpenBooking?: (serviceName?: string) => void;
@@ -7,52 +8,60 @@ interface ServicesProps {
 
 const servicesData = [
   {
-    title: "9H Ceramic Coating",
+    title: "Standard Wash",
+    icon: <MdLocalCarWash className="text-3xl text-yellow-400" />,
+    tagline: "Essential everyday cleaning for your car.",
+    price: "Starting at ₹ 499",
+    description: "A quick and thorough cleaning for your daily drive. Includes a gentle exterior foam wash, inside vacuuming, and shiny tyre dressing to keep your car looking fresh.",
+    features: ["Exterior Foam wash", "Interior Vaccuming", "Tyre Dressing"]
+  },
+  {
+    title: "Premium Ceramic Wash",
     icon: <FaCar className="text-3xl text-yellow-400" />,
-    tagline: "Ultimate 3-Year Paint Shield",
-    price: "From ₹ 5,999",
-    description: "Multi-layered German nano-quartz coating delivering deep wet-look reflection, extreme hydrophobic water beading, and UV protection.",
-    features: ["9H Pencil Hardness Shield", "Hydrophobic Water Beading", "3-Year Warranty Certificate"]
+    tagline: "Extra shine and hidden dirt removal.",
+    price: "Starting at ₹ 699",
+    description: "Get a glowing ceramic wash that repels water for weeks. This package also includes underbody washing to remove hidden dirt and AC vent steaming for fresher air inside.",
+    features: ["Exterior Ceramic Wash", "AC Vent Steaming", "Underbody wash"]
   },
   {
-    title: "Paint Correction",
+    title: "Exterior Detailing",
     icon: <FaSprayCan className="text-3xl text-yellow-400" />,
-    tagline: "90%+ Swirl & Scratch Removal",
-    price: "From ₹ 3,499",
-    description: "Two-stage compounding and jeweling rotary polish to eliminate swirl marks, spiderweb scratches, holograms, and oxidation.",
-    features: ["Digital Paint Depth Check", "Swirl & Scuff Removal", "Mirror Optical Clarity"]
+    tagline: "Complete outside cleaning and shine.",
+    price: "Starting at ₹ 1,199",
+    description: "Bring back your car's outer beauty. We remove tough stains like tar, iron, and water spots, wash the underbody thoroughly, and apply a premium wax coating for a glossy finish.",
+    features: ["Pre Wash", "Foam Wash", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Premium Wax Coating", "Water Spot Removing *"]
   },
   {
-    title: "Interior Steam Detailing",
+    title: "Interior Detailing",
     icon: <FaCouch className="text-3xl text-yellow-400" />,
-    tagline: "Deep Upholstery Sanitization",
-    price: "From ₹ 2,499",
-    description: "High-temperature antibacterial steam extraction, deep carpet shampooing, and specialized pH-balanced leather conditioning.",
-    features: ["99.9% Bacteria & Odor Removal", "Matte OEM Leather Care", "Air Duct Steam Purge"]
+    tagline: "A fresh, spotless cabin.",
+    price: "Starting at ₹ 1,499",
+    description: "A complete makeover for your car's interior. We deep clean the seats, roof, doors, and dashboard, plus steam the AC vents to give you a clean and healthy ride.",
+    features: ["Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning *", "AC Vent Steaming", "Trunk Vaccuming"]
   },
   {
-    title: "Engine Bay Detailing",
+    title: "Deep Care",
     icon: <FaWrench className="text-3xl text-yellow-400" />,
-    tagline: "De-grease & Protective Dressing",
-    price: "From ₹ 999",
-    description: "Safe precision cleaning of engine surfaces, removal of oil grime and road debris, sealed with satin temperature-resistant dressing.",
-    features: ["Safe Component Masking", "Anti-Corrosion Dressing", "Factory Satin Look"]
+    tagline: "Full inside and outside detailing.",
+    price: "Starting at ₹ 2,099",
+    description: "The ultimate combo of our interior and exterior detailing packages. We clean your car from top to bottom, including special care for your engine bay and restoring your car's exterior logos.",
+    features: ["Pre Wash", "Foam Wash", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Premium Wax Coating", "Water Spot Removing *", "Logo Restoration", "Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning *", "AC Vent Steaming", "Trunk Vaccuming", "Engine Bay Cleaning *"]
   },
   {
-    title: "Headlight & Trim Restore",
+    title: "Deep Care Plus",
     icon: <FaLightbulb className="text-3xl text-yellow-400" />,
-    tagline: "Crystal Clear Optical Clarity",
-    price: "From ₹ 1,199",
-    description: "Wet-sanding oxidation removal and UV protective clear coat sealing to restore foggy yellow headlights to maximum brightness.",
-    features: ["Wet-Sanding Oxidation Removal", "UV Clear Coat Sealant", "Passes Fitness Test"]
+    tagline: "Advanced protection and deep sanitation.",
+    price: "Starting at ₹ 3,499",
+    description: "Take your car care to the next level. This package adds a smooth clay bar treatment, a long-lasting ceramic spray coating, and antibacterial steam cleaning to make your car feel brand new.",
+    features: ["Pre Wash", "Foam Wash", "Ceramic Spray Sealant Coating", "Interior Steaming and Antibacterials Treatment", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Water Spot Removing *", "Logo Restoration", "Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning *", "AC Vent Steaming and Cleaning Using Duct Foam", "Trunk Vaccuming", "Engine Bay Cleaning *", "Clay Bar Treatment"]
   },
   {
-    title: "Premium Foam & Wash",
+    title: "DustX Premium Care",
     icon: <FaShower className="text-3xl text-yellow-400" />,
-    tagline: "Grit-Guard Gentle Detailing",
-    price: "From ₹ 299",
-    description: "Two-bucket wash with high-lubricity pH-neutral snow foam, deep wheel decontamination, tire dressing, and streak-free glass.",
-    features: ["pH-Neutral Thick Snow Foam", "Two-Bucket Grit Guard", "Tire & Trim Dressing"]
+    tagline: "Our absolute best, top-to-bottom clean.",
+    price: "Starting at ₹ 6,999",
+    description: "Our most complete detailing package. It includes everything from the Deep Care Plus package, but we also completely remove the seats to clean every single hidden corner of your car's interior.",
+    features: ["Pre Wash", "Foam Wash", "Ceramic Spray Sealant Coating", "Complete Seat Removal and Deep Cleaning", "Interior Steaming and Antibacterials Treatment", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Premium Wax Coating", "Water Spot Removing *", "Logo Restoration", "Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning", "AC Vent Steaming and Cleaning Using Duct Foam", "Trunk Vaccuming", "Engine Bay Cleaning *", "Clay Bar Treatment"]
   }
 ];
 
@@ -118,7 +127,7 @@ function Services({ onOpenBooking }: ServicesProps) {
                 </p>
 
                 {/* Features list */}
-                <div className="space-y-2 pt-4 border-t border-neutral-800/80 mb-6">
+                <div className="space-y-2 pt-4 border-t border-neutral-800/80 mb-6" style={{maxHeight: '80px', overflow: 'auto'}}>
                   {service.features.map((feat, fIdx) => (
                     <div key={fIdx} className="flex items-center gap-2 text-xs text-gray-300">
                       <FaCheck className="text-yellow-400 text-[10px] shrink-0" />
@@ -138,7 +147,9 @@ function Services({ onOpenBooking }: ServicesProps) {
               </button>
             </motion.div>
           ))}
+
         </div>
+          <p>Services marked with * are condition dependent. Charges may vary based on the vehicle's condition.</p>
 
       </div>
     </section>

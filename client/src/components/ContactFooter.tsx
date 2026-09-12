@@ -20,7 +20,8 @@ function ContactFooter() {
     const data = new FormData(form);
 
     try {
-      const API = `https://formspree.io/f/xwvdbngl`;
+      const API = `https://formspree.io/f/xppzngny`;
+
       const response = await fetch(API, {
         method: "POST",
         body: data,

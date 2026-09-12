@@ -162,7 +162,7 @@ function Navbar({ onOpenBooking }: NavbarProps) {
             title="Call DustX"
           >
             <FaPhoneAlt className="text-yellow-400 text-xs" />
-            <span>95674 87057</span>
+            <span>7012947094</span>
           </a>
 
           <button
@@ -220,7 +220,7 @@ function Navbar({ onOpenBooking }: NavbarProps) {
                   className="flex items-center justify-center gap-2 w-full py-3 bg-neutral-900 hover:bg-neutral-800 text-gray-200 border border-neutral-700 font-bold rounded-xl text-xs uppercase tracking-wider transition-colors"
                 >
                   <FaPhoneAlt className="text-yellow-400 text-xs" />
-                  <span>Call 95674 87057</span>
+                  <span>Call 70129 47094</span>
                 </a>
 
                 <button
