@@ -155,7 +155,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
 
   const getWhatsAppVerifyUrl = () => {
     const text = `*DustX Booking Verification*%0A%0A*Reference:* ${bookingRef}%0A*Name:* ${customerName}%0A*Phone:* ${customerPhone}%0A*Vehicle:* ${vehicleType}%0A*Package:* ${selectedPackage}%0A*Est. Total:* ₹ ${estimatedPrice.toLocaleString('en-IN')}%0A*Mode:* ${serviceMode}%0A*Date:* ${serviceDate}%0A*Time:* ${timeSlot}${customerAddress ? `%0A*Location:* ${customerAddress}` : ''}`;
-    return `https://wa.me/9746762831?text=${text}`;
+    return `https://wa.me/7012947094?text=${text}`;
   };
 
   const resetAndClose = () => {

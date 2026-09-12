@@ -86,12 +86,12 @@ function ContactFooter() {
                 </div>
                 <div>
                   <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider block">Direct Phone</span>
-                  <span className="text-sm font-bold text-white group-hover:text-yellow-400 transition-colors">95674 87057, 97467 62831</span>
+                  <span className="text-sm font-bold text-white group-hover:text-yellow-400 transition-colors">70129 47094, 97467 62831</span>
                 </div>
               </a>
 
               <a
-                href="https://wa.me/9746762831?text=Hi%20DustX!%20I%20would%20like%20to%20inquire%20about%20a%20detailing%20service."
+                href="https://wa.me/7012947094?text=Hi%20DustX!%20I%20would%20like%20to%20inquire%20about%20a%20detailing%20service."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-neutral-900/80 border border-neutral-800 hover:border-green-500/50 transition-colors group"
@@ -101,7 +101,7 @@ function ContactFooter() {
                 </div>
                 <div>
                   <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider block">WhatsApp Concierge</span>
-                  <span className="text-sm font-bold text-white group-hover:text-green-400 transition-colors">97467 62831 (Instant Chat)</span>
+                  <span className="text-sm font-bold text-white group-hover:text-green-400 transition-colors">70129 47094 (Instant Chat)</span>
                 </div>
               </a>
 

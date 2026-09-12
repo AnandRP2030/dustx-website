@@ -285,7 +285,7 @@ function BeforeAfterSlider({ onOpenBooking }: BeforeAfterSliderProps) {
                       if (onOpenBooking) {
                         onOpenBooking(currentScenario.title);
                       } else {
-                        window.open('https://wa.me/9746762831?text=Hi%20DustX!%20I%20am%20interested%20in%20the%20transformation%20package.', '_blank');
+                        window.open('https://wa.me/7012947094?text=Hi%20DustX!%20I%20am%20interested%20in%20the%20transformation%20package.', '_blank');
                       }
                     }}
                     className="inline-flex items-center justify-center px-6 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl shadow-[0_0_15px_rgba(250,204,21,0.3)] hover:shadow-[0_0_25px_rgba(250,204,21,0.6)] transition-all duration-300 text-sm cursor-pointer"

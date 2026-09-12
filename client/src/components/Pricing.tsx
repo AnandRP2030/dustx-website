@@ -8,50 +8,52 @@ interface PricingProps {
 
 const packages = [
   {
-    name: "Basic Wash",
-    price: "₹ 299",
+    name: "Monthly Standard Wash",
+    price: "₹ 899",
     tagline: "Essential Maintenance",
     popular: false,
     badge: "Quick Care",
     features: [
-      "pH-Neutral Snow Foam Bath",
-      "Two-Bucket Scratch-Free Wash",
-      "Alloy Wheel & Tire Dressing",
-      "Streak-Free Glass Clean",
-      "Dashboard Wipe-Down",
-      "Door Jambs Cleaned"
+      "4 Exterior Wash",
+      "2 Interior Cleaning and Vaccuming",
+      "1 Trunk Vaccuming",
+      "2 Tyre Dressing",
+      "1 AC Vent Steaming", 
+      "1 Underbody Wash"
     ]
   },
   {
-    name: "DustX Pro",
-    price: "₹ 2,999",
-    tagline: "Deep Interior & Paint Seal",
+    name: "Monthly Premium Wash",
+    price: "₹ 1,199",
+    tagline: "Premium Washing Service",
     popular: true,
     badge: "MOST POPULAR",
-    features: [
-      "Everything in Basic Wash",
-      "Deep Interior Carpet & Seat Vacuum",
-      "Carnauba Hand Wax Paint Seal",
-      "Antibacterial AC Vent Steam Purge",
-      "Engine Bay Degrease & Dressing",
-      "Leather & Plastic UV Conditioning",
-      "Exhaust Tip Metal Polish"
+     features: [
+      "1 Wax Coating",
+      "4 Exterior Wash",
+      "2 Interior Cleaning and Vaccuming",
+      "1 Trunk Vaccuming",
+      "2 Tyre Dressing",
+      "2 AC Vent Steaming", 
+      "2 Underbody Wash"
     ]
   },
   {
-    name: "Ultimate Detail",
-    price: "₹ 7,499",
-    tagline: "Total Ceramic & Correction",
+    name: "Platinum Monthly Detail",
+    price: "₹ 1,499",
+    tagline: "PLATINUM MAINTENANCE",
     popular: false,
     badge: "ULTIMATE GLOSS",
     features: [
-      "Everything in DustX Pro",
-      "Stage-1 Machine Paint Correction",
-      "3-Year 9H Quartz Ceramic Shield",
-      "Deep Hot Steam Extraction Wash",
-      "Headlight & Tail Light Restoration",
-      "Glass Hydrophobic Rain Repellent",
-      "Certificate of Warranty & Care Kit"
+      "Rain Repellent",
+      "Antibacterial treatment",
+      "1 Wax Coating",
+      "4 Exterior Wash",
+      "2 Interior Cleaning and Vaccuming",
+      "1 Trunk Vaccuming",
+      "2 Tyre Dressing",
+      "2 AC Vent Steaming", 
+      "2 Underbody Wash"
     ]
   },
 ];
@@ -123,10 +125,10 @@ function Pricing({ onSelectPackage }: PricingProps) {
                       <span className="text-4xl sm:text-5xl font-black text-white">
                         {pkg.price}
                       </span>
-                      <span className="text-xs text-gray-400 font-medium">/ service</span>
+                      <span className="text-xs text-gray-400 font-medium">/ month</span>
                     </div>
                     <p className="text-[11px] text-gray-400 mt-2">
-                      *Price shown for Hatchback. Sedans (+₹200), SUVs (+₹500), Luxury (+₹1,000).
+                      *Price shown for Hatchback. Sedans (+₹100), SUVs (+₹200), Luxury (+₹300).
                     </p>
                   </div>
 

@@ -9,24 +9,24 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: "How long does a 9H ceramic coating last and how do I maintain it?",
-    answer: "Our certified 9H ceramic quartz coatings provide durable hydrophobic protection for up to 3 years. We provide a Certificate of Warranty and a complimentary maintenance care guide. To maintain optimal gloss, we recommend bi-weekly pH-neutral foam washes and avoiding harsh chemical degreasers."
+    question: "How much time is required to complete a service?",
+    answer: "A standard wash generally takes up to 1 hour, though this can vary based on the specific vehicle condition. Comprehensive detailing services require additional care and typically take around 3 to 4 hours to complete."
   },
   {
     question: "How does Doorstep Detailing work? Do I need to provide power and water?",
     answer: "For doorstep service, our team arrives with all specialized equipment, polishers, steam extractors, and detailing chemicals. The customer only needs to provide a standard domestic water tap connection, an electrical power plug point, and adequate parking space around the car."
   },
   {
-    question: "What is the difference between regular waxing and machine paint correction?",
-    answer: "Regular waxing merely fills and masks minor clearcoat imperfections temporarily (lasting 3-6 weeks). Paint correction uses precision dual-action and rotary machines with specialized micro-abrasive compounds to permanently level out 90%+ of swirl marks, scratches, and oxidation, revealing true optical mirror reflection."
+    question: "How does the Pickup and Drop service work?",
+    answer: "Our team will collect your vehicle from your specified location and safely transport it to our dedicated detailing studio. Once all requested services are fully completed, we will promptly deliver the freshly detailed vehicle back to your doorstep."
   },
   {
-    question: "How long does a full detailing service take?",
-    answer: "A Basic Wash takes ~45 minutes. The DustX Pro package requires 2 to 3 hours. Comprehensive Ultimate Detailing with multi-stage paint correction and ceramic curing takes between 5 to 7 hours of meticulous manual craftsmanship."
+    question: "Do I need to pay any advance money to book a service?",
+    answer: "No, we do not require any advance payments. You can simply pay the full amount once the service is completed and you are completely satisfied with the results."
   },
   {
-    question: "Do you provide interior leather conditioning and odor removal?",
-    answer: "Yes! Our interior detailing includes high-temperature steam extraction (which eliminates 99.9% of bacteria and allergens), antibacterial AC duct purging, and deep pH-balanced leather feeding to prevent cracking while leaving a factory OEM matte finish."
+    question: "What happens if I am not satisfied with the service?",
+    answer: "Customer satisfaction is our top priority. If you are not completely happy with the results, simply let our team know, and we will rectify the issue or re-do the specific service."
   }
 ];
 

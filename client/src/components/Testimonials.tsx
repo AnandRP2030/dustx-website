@@ -4,30 +4,30 @@ import { FaStar, FaQuoteLeft, FaCheckCircle, FaCar } from 'react-icons/fa';
 const reviews = [
   {
     name: "Govind SS",
-    location: "Kovalam, Trivandrum",
-    car: "BMW 330i M-Sport (Black Sapphire)",
+    location: "Karamana, Trivandrum",
+    car: "SKODA KYLAQ (Cherry Red)",
     rating: 5,
-    date: "1 week ago",
-    service: "Ultimate Detail + 9H Ceramic",
-    review: "The paint correction on my black 330i completely eliminated years of swirl marks. The deep wet-look reflection is better than when I took delivery from the showroom. Highly recommended!"
+    date: "1 month ago",
+    service: "Ceramic Wash",
+    review: "Excellent service! The staff is very supportive and they delivered the car right on time. I really appreciate that they use premium products like Koch Chemie. The ceramic wash left my Cherry Red Kylaq looking amazing."
   },
   {
     name: "Kailas Nath",
-    location: "Kovalam, Trivandrum",
-    car: "Mahindra Thar 4x4 (Napoli Black)",
+    location: "Pallichal, Trivandrum",
+    car: "Swift Vxi (Pearl Arctic White)",
     rating: 5,
     date: "2 weeks ago",
-    service: "Interior Steam Clean + Underbody",
-    review: "Had so much dried red clay and upholstery mud from our Munnar off-roading trip. The DustX doorstep van came to Technopark and restored the interior to brand-new condition in 3 hours."
+    service: "Monthly Premium Wash",
+    review: "My car was covered in dried red clay and upholstery mud after an off-roading trip to Munnar. The DustX doorstep van came right to my office at Technopark and completely restored the interior to brand-new condition in just 3 hours. Highly recommended!"
   },
   {
-    name: "Dr. Ananya Menon",
-    location: "Sasthamangalam, Trivandrum",
-    car: "Mercedes-Benz C-Class C200",
+    name: "Shilpa",
+    location: "Nemom, Trivandrum",
+    car: "Maruti Suzuki (Nexa Blue)",
     rating: 5,
     date: "3 weeks ago",
-    service: "DustX Pro Package",
-    review: "Super professional and meticulous team. They pay immense attention to small details like AC vent crevices, brake calipers, and leather texture. Will definitely use their regular maintenance pass."
+    service: "Deep Care",
+    review: "My car was in pretty bad shape with baby food spills and a terrible smell coming from the AC. The team did an incredible job with the Deep Care service—they thoroughly cleaned everything, including the roof interior. They even provided a complimentary antibacterial treatment! The car smells fresh and looks spotless now."
   }
 ];
 
