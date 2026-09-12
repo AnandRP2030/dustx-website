@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowsAltH, FaShieldAlt, FaCouch, FaLightbulb, FaCheckCircle } from 'react-icons/fa';
+import { FaArrowsAltH, FaShieldAlt, FaCouch, FaLightbulb, FaCheckCircle, FaSun } from 'react-icons/fa';
 
 interface TransformationScenario {
   id: string;
@@ -18,39 +18,49 @@ interface TransformationScenario {
 const scenarios: TransformationScenario[] = [
   {
     id: 'paint-correction',
-    title: 'Paint Correction & Ceramic Shield',
-    category: 'Exterior Detailing',
+    title: 'Seat Deep Cleaning',
+    category: 'Interior Detailing',
     icon: <FaShieldAlt className="text-xl" />,
-    beforeImg: '/images/paint-before.jpg',
-    afterImg: '/images/paint-after.jpg',
-    beforeLabel: 'Scratched & Dull',
-    afterLabel: '9H Mirror Gloss',
-    description: 'Eliminates 90%+ of spiderweb swirl marks, micro-scratches, and oxidation. Finished with ultra-hydrophobic 9H ceramic shield for deep wet-look gloss and years of paint protection.',
-    benefits: ['Swirl & hologram removal', 'Deep wet-look reflection', '3-year ceramic hydrophobic shield', 'UV oxidation protection']
+    beforeImg: '/images/seat-before.png',
+    afterImg: '/images/seat-after.jpg',
+    beforeLabel: 'HEAVY DIRT & MOLD"',
+    afterLabel: 'FACTORY MATTE FINISH',
+    description: `Eradicates deep-seated dirt, tough stains, and harmful mold or mildew from your vehicle's upholstery. We use specialized pH-balanced cleaners and high-temperature steam extraction to restore the factory-fresh look and supple feel of your seats while completely eliminating odor-causing bacteria.`,
+    benefits: ['Deep stain & mold eradication', 'Odor & bacteria elimination', 'pH-balanced material care', 'Premium conditioning & UV protection']
   },
   {
-    id: 'interior-clean',
-    title: 'Luxury Interior Steam Clean & Leather Restore',
-    category: 'Interior Detailing',
-    icon: <FaCouch className="text-xl" />,
-    beforeImg: '/images/interior-before.jpg',
-    afterImg: '/images/interior-after.jpg',
-    beforeLabel: 'Stained & Dusty',
-    afterLabel: 'Sanitized OEM Matte',
-    description: 'Deep high-temperature steam extraction, antibacterial sanitization, and specialized pH-balanced leather conditioning to return high-contact surfaces to factory freshness.',
-    benefits: ['Hot steam stain extraction', '99.9% germ & odor elimination', 'Matte OEM leather nourishment', 'Crevice & vent detailing']
+    id: 'tyre-detailing',
+    title: 'Tyre Detailing and Dressing',
+    category: 'Exterior Detailing',
+    icon: <FaShieldAlt className="text-xl" />,
+    beforeImg: '/images/tyre-before.jpg',
+    afterImg: '/images/tyre-after.jpg',
+    beforeLabel: 'Brake Dust & Grime',
+    afterLabel: 'Rich Satin Finish',
+    description: 'Intensive deep-cleaning of wheels, tires, and wheel wells to safely dissolve stubborn brake dust, road tar, and heavy grime. Finished with a premium, non-sling UV-protective dressing that conditions the rubber and leaves a deep, factory-fresh satin black finish.',
+    benefits: [
+      'Stubborn brake dust & tar removal',
+      'Deep, rich black satin finish',
+      'Non-sling UV rubber protection',
+      'Prevents premature tire fading & cracking'
+    ]
   },
   {
     id: 'headlight-restoration',
-    title: 'Headlight Lens Clarity & UV Seal',
-    category: 'Restoration',
-    icon: <FaLightbulb className="text-xl" />,
-    beforeImg: '/images/headlight-before.jpg',
-    afterImg: '/images/headlight-after.jpg',
-    beforeLabel: 'Yellowed & Foggy',
+    title: 'Headlight Restoration',
+    category: 'Exterior Detailing',
+    icon: <FaSun className="text-xl" />, 
+    beforeImg: '/images/light-before.png',
+    afterImg: '/images/light-after.png',
+    beforeLabel: 'Foggy & Oxidized',
     afterLabel: 'Crystal Clear',
-    description: 'Multi-stage wet sanding and chemical compounding to remove yellowed oxidation layers, sealed with durable UV protective clear coat for maximum night visibility.',
-    benefits: ['Restores 100% light output', 'Eliminates cloudy oxidation', 'Durable UV blocker coat', 'Passes strict fitness checks']
+    description: 'Removes heavy oxidation, yellowing, and surface scratches from polycarbonate headlight lenses. Restores optical clarity for safer night driving and applies a UV-resistant ceramic coating to prevent future fading.',
+    benefits: [
+      'Oxidation & yellowing removal',
+      'Improves night driving visibility',
+      'Restores true optical clarity',
+      'UV-resistant ceramic protection'
+    ]
   }
 ];
 
