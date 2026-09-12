@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowsAltH, FaShieldAlt, FaCouch, FaLightbulb, FaCheckCircle, FaSun } from 'react-icons/fa';
+import { FaArrowsAltH, FaShieldAlt, FaCheckCircle, FaSun } from 'react-icons/fa';
 
 interface TransformationScenario {
   id: string;
