@@ -4,7 +4,6 @@ import {
   FaSprayCan,
   FaWrench,
   FaCouch,
-  FaShower,
   FaLightbulb
 } from 'react-icons/fa';
 import { MdLocalCarWash } from 'react-icons/md';
@@ -211,7 +210,7 @@ export const SERVICES: ServicePackage[] = [
   {
     id: 'dustx-premium-care',
     title: 'DustX Premium Care',
-    icon: <FaShower className="text-3xl text-yellow-400" />,
+    icon: <FaCar className="text-3xl text-yellow-400" />,
     tagline: 'Our absolute best, top-to-bottom clean.',
     startingPrice: 'Starting at ₹ 6,999',
     description: 'Our most complete detailing package. It includes everything from the Deep Care Plus package, but we also completely remove the seats to clean every single hidden corner of your car\'s interior.',
