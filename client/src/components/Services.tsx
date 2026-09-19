@@ -1,69 +1,10 @@
 import { motion } from 'framer-motion';
-import { FaCar, FaSprayCan, FaWrench, FaCouch, FaShower, FaLightbulb, FaCheck, FaArrowRight, FaShieldAlt } from 'react-icons/fa';
-import { MdLocalCarWash } from 'react-icons/md';
+import { FaCheck, FaArrowRight, FaShieldAlt } from 'react-icons/fa';
+import { SERVICES } from '../data/packagesData';
 
 interface ServicesProps {
   onOpenBooking?: (serviceName?: string) => void;
 }
-
-const servicesData = [
-  {
-    title: "Standard Wash",
-    icon: <MdLocalCarWash className="text-3xl text-yellow-400" />,
-    tagline: "Essential everyday cleaning for your car.",
-    price: "Starting at ₹ 499",
-    description: "A quick and thorough cleaning for your daily drive. Includes a gentle exterior foam wash, inside vacuuming, and shiny tyre dressing to keep your car looking fresh.",
-    features: ["Exterior Foam wash", "Interior Vaccuming", "Tyre Dressing"]
-  },
-  {
-    title: "Premium Ceramic Wash",
-    icon: <FaCar className="text-3xl text-yellow-400" />,
-    tagline: "Extra shine and hidden dirt removal.",
-    price: "Starting at ₹ 699",
-    description: "Get a glowing ceramic wash that repels water for weeks. This package also includes underbody washing to remove hidden dirt and AC vent steaming for fresher air inside.",
-    features: ["Exterior Ceramic Wash", "AC Vent Steaming", "Underbody wash"]
-  },
-  {
-    title: "Exterior Detailing",
-    icon: <FaSprayCan className="text-3xl text-yellow-400" />,
-    tagline: "Complete outside cleaning and shine.",
-    price: "Starting at ₹ 1,199",
-    description: "Bring back your car's outer beauty. We remove tough stains like tar, iron, and water spots, wash the underbody thoroughly, and apply a premium wax coating for a glossy finish.",
-    features: ["Pre Wash", "Foam Wash", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Premium Wax Coating", "Water Spot Removing *"]
-  },
-  {
-    title: "Interior Detailing",
-    icon: <FaCouch className="text-3xl text-yellow-400" />,
-    tagline: "A fresh, spotless cabin.",
-    price: "Starting at ₹ 1,499",
-    description: "A complete makeover for your car's interior. We deep clean the seats, roof, doors, and dashboard, plus steam the AC vents to give you a clean and healthy ride.",
-    features: ["Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning *", "AC Vent Steaming", "Trunk Vaccuming"]
-  },
-  {
-    title: "Deep Care",
-    icon: <FaWrench className="text-3xl text-yellow-400" />,
-    tagline: "Full inside and outside detailing.",
-    price: "Starting at ₹ 2,099",
-    description: "The ultimate combo of our interior and exterior detailing packages. We clean your car from top to bottom, including special care for your engine bay and restoring your car's exterior logos.",
-    features: ["Pre Wash", "Foam Wash", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Premium Wax Coating", "Water Spot Removing *", "Logo Restoration", "Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning *", "AC Vent Steaming", "Trunk Vaccuming", "Engine Bay Cleaning *"]
-  },
-  {
-    title: "Deep Care Plus",
-    icon: <FaLightbulb className="text-3xl text-yellow-400" />,
-    tagline: "Advanced protection and deep sanitation.",
-    price: "Starting at ₹ 3,499",
-    description: "Take your car care to the next level. This package adds a smooth clay bar treatment, a long-lasting ceramic spray coating, and antibacterial steam cleaning to make your car feel brand new.",
-    features: ["Pre Wash", "Foam Wash", "Ceramic Spray Sealant Coating", "Interior Steaming and Antibacterials Treatment", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Water Spot Removing *", "Logo Restoration", "Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning *", "AC Vent Steaming and Cleaning Using Duct Foam", "Trunk Vaccuming", "Engine Bay Cleaning *", "Clay Bar Treatment"]
-  },
-  {
-    title: "DustX Premium Care",
-    icon: <FaShower className="text-3xl text-yellow-400" />,
-    tagline: "Our absolute best, top-to-bottom clean.",
-    price: "Starting at ₹ 6,999",
-    description: "Our most complete detailing package. It includes everything from the Deep Care Plus package, but we also completely remove the seats to clean every single hidden corner of your car's interior.",
-    features: ["Pre Wash", "Foam Wash", "Ceramic Spray Sealant Coating", "Complete Seat Removal and Deep Cleaning", "Interior Steaming and Antibacterials Treatment", "Glass Cleaning", "Tyre Detialing and Dressing", "Iron Removing", "Tar Removing", "Rain repellent", "Underbody Wash", "Premium Wax Coating", "Water Spot Removing *", "Logo Restoration", "Interior Deep Claning and Vaccuming", "Doorpad Deep Cleaning", "Dashboard Deep Cleaning and Polishing", "Seat Cleaning *", "Roof Cleaning", "AC Vent Steaming and Cleaning Using Duct Foam", "Trunk Vaccuming", "Engine Bay Cleaning *", "Clay Bar Treatment"]
-  }
-];
 
 function Services({ onOpenBooking }: ServicesProps) {
   return (
@@ -96,9 +37,9 @@ function Services({ onOpenBooking }: ServicesProps) {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-          {servicesData.map((service, index) => (
+          {SERVICES.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -112,7 +53,7 @@ function Services({ onOpenBooking }: ServicesProps) {
                     {service.icon}
                   </div>
                   <span className="text-xs font-black text-yellow-400 bg-yellow-400/10 border border-yellow-400/20 px-3 py-1 rounded-full">
-                    {service.price}
+                    {service.startingPrice}
                   </span>
                 </div>
 

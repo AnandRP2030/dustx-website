@@ -1,62 +1,11 @@
 import { motion } from 'framer-motion';
 import { FaCheck, FaCrown, FaShieldAlt } from 'react-icons/fa';
 import { IoSparkles } from 'react-icons/io5';
+import { MONTHLY_PACKAGES } from '../data/packagesData';
 
 interface PricingProps {
   onSelectPackage?: (pkgName: string) => void;
 }
-
-const packages = [
-  {
-    name: "Monthly Standard Wash",
-    price: "₹ 899",
-    tagline: "Essential Maintenance",
-    popular: false,
-    badge: "Quick Care",
-    features: [
-      "4 Exterior Wash",
-      "2 Interior Cleaning and Vaccuming",
-      "1 Trunk Vaccuming",
-      "2 Tyre Dressing",
-      "1 AC Vent Steaming", 
-      "1 Underbody Wash"
-    ]
-  },
-  {
-    name: "Monthly Premium Wash",
-    price: "₹ 1,199",
-    tagline: "Premium Washing Service",
-    popular: true,
-    badge: "MOST POPULAR",
-     features: [
-      "1 Wax Coating",
-      "4 Exterior Wash",
-      "2 Interior Cleaning and Vaccuming",
-      "1 Trunk Vaccuming",
-      "2 Tyre Dressing",
-      "2 AC Vent Steaming", 
-      "2 Underbody Wash"
-    ]
-  },
-  {
-    name: "Platinum Monthly Detail",
-    price: "₹ 1,499",
-    tagline: "PLATINUM MAINTENANCE",
-    popular: false,
-    badge: "ULTIMATE GLOSS",
-    features: [
-      "Rain Repellent",
-      "Antibacterial treatment",
-      "1 Wax Coating",
-      "4 Exterior Wash",
-      "2 Interior Cleaning and Vaccuming",
-      "1 Trunk Vaccuming",
-      "2 Tyre Dressing",
-      "2 AC Vent Steaming", 
-      "2 Underbody Wash"
-    ]
-  },
-];
 
 function Pricing({ onSelectPackage }: PricingProps) {
   return (
@@ -88,11 +37,11 @@ function Pricing({ onSelectPackage }: PricingProps) {
 
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          {packages.map((pkg, index) => {
+          {MONTHLY_PACKAGES.map((pkg, index) => {
             const isFeatured = pkg.popular;
             return (
               <motion.div
-                key={index}
+                key={pkg.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -123,7 +72,7 @@ function Pricing({ onSelectPackage }: PricingProps) {
                   <div className="mb-8 pb-6 border-b border-neutral-800">
                     <div className="flex items-baseline gap-1">
                       <span className="text-4xl sm:text-5xl font-black text-white">
-                        {pkg.price}
+                        {pkg.startingPrice}
                       </span>
                       <span className="text-xs text-gray-400 font-medium">/ month</span>
                     </div>

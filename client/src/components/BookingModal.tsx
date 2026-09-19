@@ -12,6 +12,15 @@ import {
   FaTruck
 } from 'react-icons/fa';
 import { IoSparkles } from 'react-icons/io5';
+import {
+  VEHICLE_TYPES,
+  SERVICES,
+  MONTHLY_PACKAGES,
+  type VehicleTypeId,
+  findPackageByName,
+  getPackagePrice,
+  isMonthlyPackage,
+} from '../data/packagesData';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -19,34 +28,39 @@ interface BookingModalProps {
   initialPackage?: string;
 }
 
-const VEHICLE_TYPES = [
-  { id: 'hatchback', name: 'Hatchback', icon: '🚗', modifier: 0 },
-  { id: 'sedan', name: 'Sedan', icon: '🚘', modifier: 200 },
-  { id: 'suv', name: 'SUV / Compact SUV', icon: '🚙', modifier: 500 },
-  { id: 'luxury', name: 'Luxury / Supercar', icon: '🏎️', modifier: 1000 },
-];
-
-const PACKAGES = [
-  { id: 'basic', name: 'Basic Wash', basePrice: 299, desc: 'Exterior wash, tire dressing, window clean' },
-  { id: 'pro', name: 'DustX Pro', basePrice: 2999, desc: 'Deep interior vacuum, wax, engine wipe' },
-  { id: 'ultimate', name: 'Ultimate Detail', basePrice: 7499, desc: 'Ceramic shield, carpet shampoo, paint correction' },
-  { id: 'paint-correction', name: 'Paint Correction & Ceramic', basePrice: 5999, desc: '90%+ swirl removal + 9H ceramic mirror gloss' },
-  { id: 'interior-clean', name: 'Interior Steam Restoration', basePrice: 2499, desc: 'Hot steam extraction & matte leather restore' },
-  { id: 'headlight', name: 'Headlight Lens Restoration', basePrice: 1199, desc: 'Crystal clear optical sanding + UV clear coat' },
-];
-
 const TIME_SLOTS = [
-  'Early Morning (6:00 AM - 09:00 PM)',
+  'Early Morning (6:00 AM - 09:00 AM)',
   'Morning (9:00 AM - 12:00 PM)',
   'Afternoon (1:00 PM - 4:00 PM)',
   'Evening (4:00 PM - 6:00 PM)',
-  'Night (7:00 PM - 12:00 PM)',
+  'Night (7:00 PM - 10:00 PM)',
 ];
 
 function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
   const [step, setStep] = useState(1);
-  const [vehicleType, setVehicleType] = useState('Sedan');
-  const [selectedPackage, setSelectedPackage] = useState(initialPackage || 'DustX Pro');
+  const [vehicleTypeId, setVehicleTypeId] = useState<VehicleTypeId>('hatchback');
+
+  const [selectedPackage, setSelectedPackage] = useState<string>(() => {
+    const match = findPackageByName(initialPackage);
+    if (match) {
+      return match.type === 'service' ? match.title : match.name;
+    }
+    return initialPackage || 'Standard Wash';
+  });
+
+  const [prevInitialPackage, setPrevInitialPackage] = useState(initialPackage);
+  if (initialPackage !== prevInitialPackage) {
+    setPrevInitialPackage(initialPackage);
+    const match = findPackageByName(initialPackage);
+    if (match) {
+      setSelectedPackage(match.type === 'service' ? match.title : match.name);
+    } else if (initialPackage) {
+      setSelectedPackage(initialPackage);
+    }
+    // Set vehicle type to hatchback by default as requested
+    setVehicleTypeId('hatchback');
+  }
+
   const [serviceMode, setServiceMode] = useState<'Pickup & Drop' | 'Doorstep Service'>('Doorstep Service');
 
   // Default date: tomorrow formatted YYYY-MM-DD
@@ -66,19 +80,6 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
   const [bookingRef, setBookingRef] = useState('');
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // Update selected package if passed via props
-  useEffect(() => {
-    if (initialPackage) {
-      // Find matching package or fallback
-      const match = PACKAGES.find(p => p.name.toLowerCase().includes(initialPackage.toLowerCase()));
-      if (match) {
-        setSelectedPackage(match.name);
-      } else {
-        setSelectedPackage(initialPackage);
-      }
-    }
-  }, [initialPackage]);
-
   // Lock body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -91,10 +92,12 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
     };
   }, [isOpen]);
 
-  // Calculate estimated price
-  const activePackageObj = PACKAGES.find(p => p.name === selectedPackage) || PACKAGES[1];
-  const activeVehicleObj = VEHICLE_TYPES.find(v => v.name === vehicleType) || VEHICLE_TYPES[1];
-  const estimatedPrice = activePackageObj.basePrice + activeVehicleObj.modifier;
+  // Calculate active objects and estimated price
+  const activeVehicleObj = VEHICLE_TYPES.find(v => v.id === vehicleTypeId) || VEHICLE_TYPES[0];
+  const matchedPkg = findPackageByName(selectedPackage) || SERVICES[0];
+  const isMonthly = isMonthlyPackage(matchedPkg);
+  const estimatedPrice = getPackagePrice(matchedPkg, vehicleTypeId);
+  const priceDisplay = `₹ ${estimatedPrice.toLocaleString('en-IN')}${isMonthly ? ' / month' : ''}`;
 
   const handleNextStep = (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,14 +121,15 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
     setBookingRef(generatedRef);
 
     const formData = new FormData();
-    formData.append('_subject', `[New DustX Booking] ${selectedPackage} - ${customerName} (${generatedRef})`);
+    formData.append('_subject', `[New DustX Booking] ${selectedPackage} (${isMonthly ? 'Monthly' : 'Single'}) - ${customerName} (${generatedRef})`);
     formData.append('Booking Reference', generatedRef);
     formData.append('Customer Name', customerName);
     formData.append('Phone', customerPhone);
     formData.append('Email', customerEmail);
-    formData.append('Vehicle Type', vehicleType);
+    formData.append('Vehicle Type', activeVehicleObj.name);
+    formData.append('Package Type', isMonthly ? 'Monthly Maintenance Package' : 'Single Detailing Service');
     formData.append('Service Package', selectedPackage);
-    formData.append('Estimated Price', `₹ ${estimatedPrice.toLocaleString('en-IN')}`);
+    formData.append('Estimated Price', priceDisplay);
     formData.append('Service Mode', serviceMode);
     formData.append('Scheduled Date', serviceDate);
     formData.append('Time Slot', timeSlot);
@@ -146,7 +150,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
       } else {
         setSubmitError('Failed to submit booking. Please try again or book directly via WhatsApp.');
       }
-    } catch (err) {
+    } catch {
       setSubmitError('Network error. Please check your connection or use WhatsApp directly.');
     } finally {
       setIsSubmitting(false);
@@ -154,7 +158,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
   };
 
   const getWhatsAppVerifyUrl = () => {
-    const text = `*DustX Booking Verification*%0A%0A*Reference:* ${bookingRef}%0A*Name:* ${customerName}%0A*Phone:* ${customerPhone}%0A*Vehicle:* ${vehicleType}%0A*Package:* ${selectedPackage}%0A*Est. Total:* ₹ ${estimatedPrice.toLocaleString('en-IN')}%0A*Mode:* ${serviceMode}%0A*Date:* ${serviceDate}%0A*Time:* ${timeSlot}${customerAddress ? `%0A*Location:* ${customerAddress}` : ''}`;
+    const text = `*DustX Booking Verification*%0A%0A*Reference:* ${bookingRef}%0A*Name:* ${customerName}%0A*Phone:* ${customerPhone}%0A*Vehicle:* ${activeVehicleObj.name}%0A*Package:* ${selectedPackage} (${isMonthly ? 'Monthly Plan' : 'Single Service'})%0A*Est. Total:* ${priceDisplay}%0A*Mode:* ${serviceMode}%0A*Date:* ${serviceDate}%0A*Time:* ${timeSlot}${customerAddress ? `%0A*Location:* ${customerAddress}` : ''}`;
     return `https://wa.me/7012947094?text=${text}`;
   };
 
@@ -238,9 +242,9 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="space-y-6 relative z-10"
+              className="space-y-6 relative z-10 max-h-[62vh] overflow-y-auto pr-1 sm:pr-2"
             >
-              {/* Vehicle Type Selection */}
+              {/* 1. Vehicle Type Selection */}
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2.5">
                   1. Select Vehicle Type
@@ -250,9 +254,9 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                     <button
                       key={v.id}
                       type="button"
-                      onClick={() => setVehicleType(v.name)}
-                      className={`p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center gap-1 ${vehicleType === v.name
-                        ? 'border-yellow-400 bg-yellow-400/10 text-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.25)] font-bold'
+                      onClick={() => setVehicleTypeId(v.id)}
+                      className={`p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center gap-1 ${vehicleTypeId === v.id
+                        ? 'border-yellow-400 bg-yellow-400/10 text-yellow-400 shadow-[0_0_12px_rgba(250,204,21,0.25)] font-bold ring-1 ring-yellow-400'
                         : 'border-neutral-800 bg-neutral-900/70 text-gray-300 hover:border-neutral-700 hover:bg-neutral-800'
                         }`}
                     >
@@ -263,33 +267,84 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                 </div>
               </div>
 
-              {/* Package Selection */}
+              {/* 2. Detailing Package Selection (Single-Time Service) */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2.5">
-                  2. Select Detailing Package
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-52 overflow-y-auto pr-1">
-                  {PACKAGES.map((pkg) => {
+                <div className="flex items-center justify-between mb-2.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-300">
+                    2. Select Detailing Package
+                  </label>
+                  <span className="text-[10px] text-gray-400 font-medium">Single-Time Services</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-56 overflow-y-auto pr-1">
+                  {SERVICES.map((pkg) => {
+                    const isSelected = selectedPackage === pkg.title;
+                    const price = pkg.prices[vehicleTypeId];
+                    return (
+                      <button
+                        key={pkg.id}
+                        type="button"
+                        onClick={() => setSelectedPackage(pkg.title)}
+                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${isSelected
+                          ? 'border-yellow-400 bg-yellow-400/10 shadow-[0_0_12px_rgba(250,204,21,0.25)] ring-1 ring-yellow-400'
+                          : 'border-neutral-800 bg-neutral-900/70 hover:border-neutral-700 hover:bg-neutral-800'
+                          }`}
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className={`font-bold text-sm truncate ${isSelected ? 'text-yellow-400' : 'text-white'}`}>
+                            {pkg.title}
+                          </span>
+                          <span className="text-xs font-extrabold text-white bg-black/70 px-2.5 py-0.5 rounded-full border border-neutral-700 shrink-0">
+                            ₹ {price.toLocaleString('en-IN')}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-gray-400 mt-1 line-clamp-1">{pkg.description}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 3. Monthly Packages Selection */}
+              <div>
+                <div className="flex items-center justify-between mb-2.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-300">
+                    3. Monthly Packages
+                  </label>
+                  <span className="text-[10px] text-yellow-400 font-semibold">Routine Maintenance</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {MONTHLY_PACKAGES.map((pkg) => {
                     const isSelected = selectedPackage === pkg.name;
+                    const price = pkg.prices[vehicleTypeId];
                     return (
                       <button
                         key={pkg.id}
                         type="button"
                         onClick={() => setSelectedPackage(pkg.name)}
-                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${isSelected
-                          ? 'border-yellow-400 bg-yellow-400/10 shadow-[0_0_12px_rgba(250,204,21,0.25)]'
+                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between relative ${isSelected
+                          ? 'border-yellow-400 bg-yellow-400/10 shadow-[0_0_12px_rgba(250,204,21,0.25)] ring-1 ring-yellow-400'
                           : 'border-neutral-800 bg-neutral-900/70 hover:border-neutral-700 hover:bg-neutral-800'
                           }`}
                       >
-                        <div className="flex items-center justify-between">
-                          <span className={`font-bold text-sm ${isSelected ? 'text-yellow-400' : 'text-white'}`}>
-                            {pkg.name}
+                        {pkg.popular && (
+                          <span className="absolute -top-2 right-2.5 bg-yellow-400 text-black text-[9px] font-black uppercase px-2 py-0.5 rounded-full shadow-[0_0_8px_rgba(250,204,21,0.5)]">
+                            {pkg.badge || 'POPULAR'}
                           </span>
-                          <span className="text-xs font-extrabold text-white bg-black/60 px-2 py-0.5 rounded-full border border-neutral-700">
-                            ₹ {(pkg.basePrice + activeVehicleObj.modifier).toLocaleString('en-IN')}
-                          </span>
+                        )}
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <span className={`font-bold text-sm ${isSelected ? 'text-yellow-400' : 'text-white'}`}>
+                              {pkg.name}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-gray-400 line-clamp-1">{pkg.tagline}</p>
                         </div>
-                        <p className="text-[11px] text-gray-400 mt-1 line-clamp-1">{pkg.desc}</p>
+                        <div className="mt-2.5 pt-2 border-t border-neutral-800 flex items-baseline justify-between">
+                          <span className="text-xs font-black text-yellow-400">
+                            ₹ {price.toLocaleString('en-IN')}
+                          </span>
+                          <span className="text-[10px] text-gray-400 font-medium">/ month</span>
+                        </div>
                       </button>
                     );
                   })}
@@ -297,17 +352,25 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
               </div>
 
               {/* Price Estimate Summary Bar */}
-              <div className="p-3.5 bg-neutral-900/90 border border-neutral-800 rounded-2xl flex items-center justify-between">
+              <div className="p-3.5 bg-neutral-900/90 border border-neutral-800 rounded-2xl flex items-center justify-between sticky bottom-0 z-20 backdrop-blur-md">
                 <div>
                   <span className="text-[11px] text-gray-400 uppercase tracking-wider block">Estimated Quote</span>
-                  <span className="text-xl font-extrabold text-yellow-400">
-                    ₹ {estimatedPrice.toLocaleString('en-IN')}
-                  </span>
+                  <div className="flex items-baseline gap-1.5 flex-wrap">
+                    <span className="text-xl font-extrabold text-yellow-400">
+                      ₹ {estimatedPrice.toLocaleString('en-IN')}
+                    </span>
+                    {isMonthly && (
+                      <span className="text-xs text-yellow-400/90 font-bold">/ month</span>
+                    )}
+                    <span className="text-xs text-gray-400 hidden sm:inline">
+                      ({activeVehicleObj.name} • {isMonthly ? 'Monthly Pack' : 'Single Service'})
+                    </span>
+                  </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="px-6 py-2.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl text-sm shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-all flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-2.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold rounded-xl text-sm shadow-[0_0_15px_rgba(250,204,21,0.4)] transition-all flex items-center gap-2 cursor-pointer shrink-0"
                 >
                   <span>Next: Schedule</span>
                   <FaArrowRight className="text-xs" />
@@ -521,7 +584,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                     <span>Submitting Request...</span>
                   ) : (
                     <>
-                      <span>Confirm & Book (₹ {estimatedPrice.toLocaleString('en-IN')})</span>
+                      <span>Confirm & Book ({priceDisplay})</span>
                       <FaCheckCircle className="text-xs" />
                     </>
                   )}
@@ -560,7 +623,11 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
               <div className="bg-neutral-900/80 border border-neutral-800 rounded-2xl p-4 text-left max-w-md mx-auto text-xs space-y-1.5 text-gray-300">
                 <div className="flex justify-between">
                   <span className="text-gray-400">Vehicle:</span>
-                  <span className="font-semibold text-white">{vehicleType}</span>
+                  <span className="font-semibold text-white">{activeVehicleObj.name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Plan Type:</span>
+                  <span className="font-semibold text-white">{isMonthly ? 'Monthly Maintenance Plan' : 'Single Detailing Service'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Schedule:</span>
@@ -572,7 +639,7 @@ function BookingModal({ isOpen, onClose, initialPackage }: BookingModalProps) {
                 </div>
                 <div className="flex justify-between border-t border-neutral-800 pt-1.5">
                   <span className="text-gray-400">Estimated Total:</span>
-                  <span className="font-bold text-yellow-400 text-sm">₹ {estimatedPrice.toLocaleString('en-IN')}</span>
+                  <span className="font-bold text-yellow-400 text-sm">{priceDisplay}</span>
                 </div>
               </div>
 

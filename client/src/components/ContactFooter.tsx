@@ -37,7 +37,7 @@ function ContactFooter() {
       } else {
         setStatus('error');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };
