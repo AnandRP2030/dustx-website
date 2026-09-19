@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowsAltH, FaShieldAlt, FaCheckCircle, FaSun } from 'react-icons/fa';
 
@@ -109,10 +109,10 @@ function BeforeAfterSlider({ onOpenBooking }: BeforeAfterSliderProps) {
     }
   };
 
-  // Reset slider to middle when tab switches
-  useEffect(() => {
+  const handleSelectTab = (index: number) => {
+    setActiveTab(index);
     setSliderPosition(50);
-  }, [activeTab]);
+  };
 
   return (
     <section id="results" className="py-24 px-4 md:px-10 bg-black text-white relative overflow-hidden">
@@ -149,7 +149,7 @@ function BeforeAfterSlider({ onOpenBooking }: BeforeAfterSliderProps) {
               return (
                 <button
                   key={scenario.id}
-                  onClick={() => setActiveTab(index)}
+                  onClick={() => handleSelectTab(index)}
                   className={`flex items-center gap-2 px-5 py-3 rounded-xl font-medium transition-all duration-300 cursor-pointer text-sm md:text-base border ${
                     isActive
                       ? 'bg-yellow-400 text-black border-yellow-400 shadow-[0_0_20px_rgba(250,204,21,0.4)] font-bold'
@@ -167,8 +167,8 @@ function BeforeAfterSlider({ onOpenBooking }: BeforeAfterSliderProps) {
         {/* Main Comparison Display Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-neutral-950/80 border border-neutral-800 p-4 md:p-8 rounded-3xl backdrop-blur-sm shadow-2xl">
           
-          {/* Interactive Image Slider (7 cols on lg) */}
-          <div className="lg:col-span-7 flex flex-col items-center">
+          {/* Interactive Image Slider (6 cols on lg) */}
+          <div className="lg:col-span-6 flex flex-col items-center justify-center">
             <div
               ref={containerRef}
               onPointerDown={handlePointerDown}
@@ -182,7 +182,7 @@ function BeforeAfterSlider({ onOpenBooking }: BeforeAfterSliderProps) {
               aria-valuemin={0}
               aria-valuemax={100}
               aria-valuenow={Math.round(sliderPosition)}
-              className="relative w-full aspect-video rounded-2xl overflow-hidden cursor-ew-resize select-none border border-neutral-800 shadow-2xl focus:outline-none focus:ring-2 focus:ring-yellow-400 group touch-none"
+              className="relative w-full max-w-[440px] aspect-[2/3] rounded-2xl overflow-hidden cursor-ew-resize select-none border border-neutral-800 shadow-2xl focus:outline-none focus:ring-2 focus:ring-yellow-400 group touch-none"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -243,15 +243,15 @@ function BeforeAfterSlider({ onOpenBooking }: BeforeAfterSliderProps) {
             </div>
 
             {/* Slider Drag Hint & Keyboard helper */}
-            <div className="flex justify-between items-center w-full px-2 mt-3 text-xs text-gray-500 font-medium">
+            <div className="flex justify-between items-center w-full max-w-[440px] px-2 mt-3 text-xs text-gray-500 font-medium">
               <span>← Slide Left for AFTER</span>
               <span className="hidden sm:inline">Tip: Use Left/Right arrow keys</span>
               <span>Slide Right for BEFORE →</span>
             </div>
           </div>
 
-          {/* Details & Benefits Column (5 cols on lg) */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          {/* Details & Benefits Column (6 cols on lg) */}
+          <div className="lg:col-span-6 flex flex-col justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentScenario.id}

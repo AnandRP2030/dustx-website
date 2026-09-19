@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaCar, FaSprayCan, FaWrench, FaCouch, FaShower, FaLightbulb, FaCheck, FaArrowRight } from 'react-icons/fa';
+import { FaCar, FaSprayCan, FaWrench, FaCouch, FaShower, FaLightbulb, FaCheck, FaArrowRight, FaShieldAlt } from 'react-icons/fa';
 import { MdLocalCarWash } from 'react-icons/md';
 
 interface ServicesProps {
@@ -149,7 +149,13 @@ function Services({ onOpenBooking }: ServicesProps) {
           ))}
 
         </div>
-          <p>Services marked with * are condition dependent. Charges may vary based on the vehicle's condition.</p>
+          {/* Guarantee Banner */}
+          <div className="mt-14 p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 text-center max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-300">
+            <FaShieldAlt className="text-2xl text-yellow-400 shrink-0" />
+            <span>
+              Services marked with<strong> * </strong> are condition dependent. Charges may vary based on the vehicle's condition.
+            </span>
+          </div>
 
       </div>
     </section>
